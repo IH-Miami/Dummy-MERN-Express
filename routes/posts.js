@@ -69,6 +69,21 @@ router.post("/edit/:postId", isAuthenticated, async (req, res) => {
 //Delete post
 router.delete("/delete/:postId", isAuthenticated, async (req, res) => {
   try {
+    let deletedPost = Post.findOneAndDelete(
+      {
+        creatorId: req.user.id,
+        _id: req.params.postId,
+      },
+      { new: true }
+    );
+    res.json(deletedPost);
+  } catch (err) {
+    res.status(400).json(err.message);
+  }
+});
+
+router.deleteOLD("/delete/:postId", isAuthenticated, async (req, res) => {
+  try {
     let deletedPost = Post.findByIdAndDelete(
       {
         creatorId: req.user.id,
@@ -82,4 +97,27 @@ router.delete("/delete/:postId", isAuthenticated, async (req, res) => {
   }
 });
 
+//Pieces we need
+//userId
+
+//like Post
+router.post("/likes/:postId", isAuthenticated, async (req, res) => {
+  try {
+    let updatedPost = await Post.findByIdAndUpdate(
+      req.params.postId,
+      { $addToSet: { likes: req.user.id } },
+      { new: true }
+    );
+    res.json(updatedPost);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
 module.exports = router;
+
+const search = (num) => {
+  filterConditions[num]; //[a,e]
+};
+
+let filterConditions = [["a", "e"], "f-j", "k-r", "s-z"];

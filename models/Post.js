@@ -1,4 +1,3 @@
-const res = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
@@ -10,6 +9,12 @@ const postSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "User",
   },
+  likes: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 const Post = mongoose.model("Post", postSchema);

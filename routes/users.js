@@ -4,6 +4,8 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
 const { isAuthenticated } = require("../middleware/auth");
+const fileUploader = require("../middleware/cloudinary");
+
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
@@ -45,5 +47,13 @@ router.post("/login", async (req, res, next) => {
 router.get("/login-test", isAuthenticated, (req, res) => {
   res.json({ message: "You are logged in" });
 });
+
+router.post(
+  "/add-picture",
+  fileUploader.single("imageUrl"),
+  async (req, res) => {
+    res.json(req.file);
+  }
+);
 
 module.exports = router;
