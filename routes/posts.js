@@ -82,20 +82,20 @@ router.delete("/delete/:postId", isAuthenticated, async (req, res) => {
   }
 });
 
-router.deleteOLD("/delete/:postId", isAuthenticated, async (req, res) => {
-  try {
-    let deletedPost = Post.findByIdAndDelete(
-      {
-        creatorId: req.user.id,
-        _id: req.params.postId,
-      },
-      { new: true }
-    );
-    res.json(deletedPost);
-  } catch (err) {
-    res.status(400).json(err.message);
-  }
-});
+// router.deleteOLD("/delete/:postId", isAuthenticated, async (req, res) => {
+//   try {
+//     let deletedPost = Post.findByIdAndDelete(
+//       {
+//         creatorId: req.user.id,
+//         _id: req.params.postId,
+//       },
+//       { new: true }
+//     );
+//     res.json(deletedPost);
+//   } catch (err) {
+//     res.status(400).json(err.message);
+//   }
+// });
 
 //Pieces we need
 //userId

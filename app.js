@@ -45,10 +45,16 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+// mongoose
+//   .connect("mongodb://localhost/jun-2022")
+//   .then((x) => {
+//     console.log(`Successfully connected`);
+//   })
+//   .catch((err) => console.error("Error connecting to mongo", err));
 mongoose
-  .connect("mongodb://localhost/jun-2022")
+  .connect(process.env.MONGODB_URI)
   .then((x) => {
-    console.log(`Successfully connected`);
+    console.log(`Successfully connected`, x);
   })
   .catch((err) => console.error("Error connecting to mongo", err));
 
